@@ -1,0 +1,132 @@
+/* ========== ЦВЕТОВЫЕ СХЕМЫ ПОСЕЛКОВ ========== */
+
+/* Общие переменные */
+:root {
+    --primary-color: #2E7D32;
+    --primary-dark: #1B5E20;
+    --primary-light: #4CAF50;
+    --secondary-color: #F57C00;
+    --secondary-dark: #E65100;
+    --secondary-light: #FF9800;
+}
+
+/* Поселок Заповедное (по умолчанию) */
+body {
+    --village-primary: var(--primary-color);
+    --village-primary-dark: var(--primary-dark);
+    --village-primary-light: var(--primary-light);
+}
+
+/* Поселок Колосок */
+body.village-kolosok {
+    --village-primary: var(--secondary-color);
+    --village-primary-dark: var(--secondary-dark);
+    --village-primary-light: var(--secondary-light);
+}
+
+/* Применение цветов */
+.btn-primary,
+.site-header.scrolled,
+.main-nav a.active,
+.section-title,
+.plot-price,
+.contact-icon {
+    background-color: var(--village-primary) !important;
+    color: white !important;
+    border-color: var(--village-primary) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--village-primary-dark) !important;
+    border-color: var(--village-primary-dark) !important;
+}
+
+.btn-outline {
+    background: transparent !important;
+    color: var(--village-primary) !important;
+    border: 2px solid var(--village-primary) !important;
+}
+
+.btn-outline:hover {
+    background: var(--village-primary) !important;
+    color: white !important;
+}
+
+/* Индикатор текущего поселка */
+.village-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.village-indicator.zapovednoe {
+    background: #E8F5E9;
+    color: #2E7D32;
+    border: 1px solid #C8E6C9;
+}
+
+.village-indicator.kolosok {
+    background: #FFF3E0;
+    color: #F57C00;
+    border: 1px solid #FFE0B2;
+}
+
+/* Переключатель поселков */
+.village-switcher-component {
+    display: flex;
+    gap: 10px;
+    background: #f5f5f5;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.village-switch-btn {
+    padding: 8px 20px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.village-switch-btn.active {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.village-switch-btn.zapovednoe.active {
+    color: #2E7D32;
+}
+
+.village-switch-btn.kolosok.active {
+    color: #F57C00;
+}
+
+/* Бейджи статусов */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-available {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.status-reserved {
+    background: #FFF3E0;
+    color: #F57C00;
+}
+
+.status-sold {
+    background: #FFEBEE;
+    color: #C62828;
+}

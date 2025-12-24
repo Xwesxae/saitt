@@ -1,0 +1,978 @@
+/*
+Theme Name: DNP Theme
+Theme URI: https://дпк-заповедное.рф
+Author: Разработчик ДНП
+Description: Тема для дачных поселков Заповедное и Колосок
+Version: 3.0
+License: GPL v2 or later
+Text Domain: dnp-theme
+*/
+
+/* ========== БАЗОВЫЕ СТИЛИ ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background: #fff;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ========== ПЛАВАЮЩИЙ ПЕРЕКЛЮЧАТЕЛЬ ========== */
+#floating-village-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    z-index: 9999;
+    padding: 12px;
+    min-width: 200px;
+    border: 1px solid #e0e0e0;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.switcher-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.current-icon {
+    font-size: 20px;
+}
+
+.current-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+body.village-zapovednoe .current-name {
+    color: #2E7D32;
+}
+
+body.village-kolosok .current-name {
+    color: #F57C00;
+}
+
+.switcher-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.switch-btn, .admin-btn, .logout-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid #ddd;
+    text-align: center;
+    background: #f8f9fa;
+    color: #333;
+}
+
+.switch-btn:hover, .admin-btn:hover, .logout-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+body.village-zapovednoe .switch-btn.active {
+    background: #2E7D32;
+    color: white;
+    border-color: #2E7D32;
+}
+
+body.village-kolosok .switch-btn.active {
+    background: #F57C00;
+    color: white;
+    border-color: #F57C00;
+}
+
+.admin-btn {
+    background: #2196F3;
+    color: white;
+    border-color: #2196F3;
+    grid-column: span 1;
+}
+
+.logout-btn {
+    background: #f44336;
+    color: white;
+    border-color: #f44336;
+    grid-column: span 1;
+}
+
+@media (max-width: 768px) {
+    #floating-village-switcher {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+    }
+    
+    .switcher-buttons {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ========== ШАПКА ========== */
+.site-header {
+    background: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Логотип */
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+}
+
+.village-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.village-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2E7D32;
+}
+
+body.village-kolosok .village-name {
+    color: #F57C00;
+}
+
+.village-status {
+    font-size: 12px;
+    color: #666;
+}
+
+.admin-badge {
+    background: #ffc107;
+    color: #212529;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+}
+
+.resident-badge {
+    background: #17a2b8;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+}
+
+.guest-badge {
+    background: #6c757d;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+}
+
+/* Навигация */
+.main-nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.main-nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: #2E7D32;
+}
+
+body.village-kolosok .main-nav a:hover,
+body.village-kolosok .main-nav a.active {
+    color: #F57C00;
+}
+
+.main-nav a.active:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+}
+
+/* ========== ГЕРОЙ СЕКЦИЯ ========== */
+.hero-section {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 20px 20px;
+}
+
+.hero-title {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ========== КНОПКИ ========== */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #2E7D32;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background: #1B5E20;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+body.village-kolosok .btn {
+    background: #F57C00;
+}
+
+body.village-kolosok .btn:hover {
+    background: #E65100;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #2E7D32;
+}
+
+body.village-kolosok .btn-outline:hover {
+    color: #F57C00;
+}
+
+/* ========== СЕКЦИИ ========== */
+section {
+    padding: 80px 0;
+    width: 100%;
+    display: block;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #2E7D32;
+    position: relative;
+}
+
+body.village-kolosok .section-title {
+    color: #F57C00;
+}
+
+.section-title:after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: currentColor;
+    margin: 15px auto 0;
+}
+
+/* О поселке */
+.about-section {
+    background: #f8f9fa;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+.about-text {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2E7D32;
+    margin-bottom: 5px;
+}
+
+body.village-kolosok .stat-number {
+    color: #F57C00;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Преимущества */
+.advantages-section {
+    background: white;
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.advantage-card {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.advantage-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.advantage-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.advantage-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Участки */
+.plots-section {
+    background: #f8f9fa;
+}
+
+.plots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.plot-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.plot-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.plot-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.plot-content {
+    padding: 20px;
+}
+
+.plot-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.plot-meta {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.plot-price {
+    font-size: 24px;
+    color: #2E7D32;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+body.village-kolosok .plot-price {
+    color: #F57C00;
+}
+
+/* Новости */
+.news-section {
+    background: white;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.news-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-content {
+    padding: 25px;
+}
+
+.news-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.news-title a {
+    color: #333;
+    text-decoration: none;
+}
+
+.news-title a:hover {
+    color: #2E7D32;
+}
+
+body.village-kolosok .news-title a:hover {
+    color: #F57C00;
+}
+
+.news-date {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Контакты */
+.contacts-section {
+    background: white;
+}
+
+.contacts-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.contact-icon {
+    font-size: 30px;
+    color: #2E7D32;
+}
+
+body.village-kolosok .contact-icon {
+    color: #F57C00;
+}
+
+.contact-details h4 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.access-warning {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background: #fff3cd;
+    border-radius: 10px;
+    border-left: 4px solid #ffc107;
+    margin-top: 30px;
+}
+
+.warning-icon {
+    font-size: 24px;
+}
+
+.warning-text {
+    font-size: 14px;
+    color: #856404;
+}
+
+.contact-form-container {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.contact-form-container h3 {
+    margin-bottom: 20px;
+    color: #2E7D32;
+    text-align: center;
+}
+
+body.village-kolosok .contact-form-container h3 {
+    color: #F57C00;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2E7D32;
+}
+
+body.village-kolosok .form-group input:focus,
+body.village-kolosok .form-group textarea:focus {
+    border-color: #F57C00;
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Галерея */
+.gallery-section {
+    background: #f8f9fa;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 250px;
+    display: block;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.zoom-icon {
+    font-size: 30px;
+    color: white;
+}
+
+/* ========== ФУТЕР ========== */
+.site-footer {
+    background: #2c3e50;
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 60px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.current-village-info {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.current-village-info p {
+    margin-bottom: 10px;
+}
+
+.change-village-link {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.change-village-link:hover {
+    text-decoration: underline;
+}
+
+.admin-link {
+    color: #2ecc71;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.admin-link:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid #34495e;
+    color: #95a5a6;
+    font-size: 14px;
+}
+
+.footer-note {
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 992px) {
+    .advantages-grid,
+    .plots-grid,
+    .gallery-grid,
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .about-content,
+    .contacts-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .hero-title {
+        font-size: 28px;
+    }
+    
+    .hero-subtitle {
+        font-size: 16px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .advantages-grid,
+    .plots-grid,
+    .gallery-grid,
+    .news-grid,
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .hero-title {
+        font-size: 24px;
+    }
+    
+    section {
+        padding: 60px 0;
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========== АНИМАЦИИ ========== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.fade-in.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========== МОДАЛЬНОЕ ОКНО ГАЛЕРЕИ ========== */
+.gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.gallery-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s;
+}
+
+.gallery-modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: #ff6b6b;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+main {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* Убедимся, что все секции видны */
+section {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
